@@ -15,24 +15,24 @@ import '../../assets/css/main.css';
 
 @lore.connect(function(getState, props) {
   return {
-    // user: getState('currentUser')
+    user: getState('currentUser')
   };
 }, { subscribe: true })
 class Master extends Component {
 
-  // static propTypes = {
-  //   user: PropTypes.object.isRequired
-  // };
+  static propTypes = {
+    user: PropTypes.object.isRequired
+  };
 
-  // static childContextTypes = {
-  //   user: PropTypes.object
-  // };
+  static childContextTypes = {
+    user: PropTypes.object
+  };
 
-  // getChildContext() {
-  //   return {
-  //     user: this.props.user
-  //   };
-  // }
+  getChildContext() {
+    return {
+      user: this.props.user
+    };
+  }
 
   componentDidMount() {
     // If you want to play with the router through the browser's dev console then
@@ -44,15 +44,15 @@ class Master extends Component {
   }
 
   render() {
-    // const user = this.props.user;
+    const user = this.props.user;
 
-    // if (user.state === PayloadStates.FETCHING) {
-    //   return (
-    //     <h1 className="loading-text">
-    //       Loading...
-    //     </h1>
-    //   )
-    // }
+    if (user.state === PayloadStates.FETCHING) {
+      return (
+        <h1 className="loading-text">
+          Loading...
+        </h1>
+      )
+    }
 
     return (
       <div>
