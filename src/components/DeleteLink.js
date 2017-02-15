@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import UserCanDeleteTweet from '../decorators/UserCanDeleteTweet';
 
+@UserCanDeleteTweet
 class DeleteLink extends Component {
 
   constructor(props) {
