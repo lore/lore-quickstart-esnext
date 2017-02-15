@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import UserCanEditTweet from '../decorators/UserCanEditTweet';
 
+@UserCanEditTweet
 class EditLink extends Component {
 
   constructor(props) {
