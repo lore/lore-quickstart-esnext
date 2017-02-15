@@ -1,10 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import Tweet from './Tweet';
 import PayloadStates from '../constants/PayloadStates';
+import { Link } from 'react-router';
 
 @lore.connect(function(getState, props){
   return {
-    tweets: getState('tweet.find')
+    tweets: getState('tweet.find', {
+      pagination: {
+        page: props.location.query.page || '1'
+      }
+    })
   }
 })
 class Feed extends Component {
@@ -19,8 +24,20 @@ class Feed extends Component {
     );
   }
 
+  renderPaginationLink(page, currentPage) {
+    return (
+      <li key={page} className={currentPage === String(page) ? 'active' : ''}>
+        <Link to={{ pathname: '/', query: { page: page } }}>
+          {page}
+        </Link>
+      </li>
+    );
+  }
+
   render() {
     const tweets = this.props.tweets;
+    const currentPage = tweets.query.pagination.page;
+    const paginationLinks = [];
 
     if (tweets.state === PayloadStates.FETCHING) {
       return (
@@ -28,6 +45,13 @@ class Feed extends Component {
           Loading...
         </h1>
       )
+    }
+
+    // calculate the number of pagination links from our metadata, then
+    // generate an array of pagination links
+    let numberOfPages = Math.ceil(tweets.meta.totalCount / tweets.meta.perPage);
+    for (var pageNumber = 1; pageNumber <= numberOfPages; pageNumber++) {
+      paginationLinks.push(this.renderPaginationLink(pageNumber, currentPage));
     }
 
     return (
@@ -38,6 +62,11 @@ class Feed extends Component {
         <ul className="media-list tweets">
           {tweets.data.map(this.renderTweet)}
         </ul>
+        <nav>
+          <ul className="pagination">
+            {paginationLinks}
+          </ul>
+        </nav>
       </div>
     );
   }
