@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 import EditLink from './EditLink';
+import DeleteLink from './DeleteLink';
 
 @lore.connect(function(getState, props){
   const tweet = props.tweet;
@@ -41,7 +42,8 @@ class Tweet extends Component {
             {tweet.data.text}
           </p>
           <div>
-            <EditLink tweet={tweet}/>
+            <EditLink tweet={tweet} />
+            <DeleteLink tweet={tweet} />
           </div>
         </div>
       </li>
