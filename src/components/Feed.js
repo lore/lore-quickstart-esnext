@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Tweet from './Tweet';
 
 class Feed extends Component {
 
@@ -29,9 +30,7 @@ class Feed extends Component {
 
   renderTweet(tweet) {
     return (
-      <li key={tweet.id}>
-        {tweet.data.text}
-      </li>
+      <Tweet key={tweet.id} tweet={tweet} />
     );
   }
 
