@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import auth from '../utils/auth';
+import { ActionTypes } from 'lore-utils';
 
 class Logout extends Component {
 
@@ -9,6 +10,10 @@ class Logout extends Component {
 
   componentDidMount(){
     auth.deleteToken();
+    lore.store.dispatch({
+      type: ActionTypes.RESET_STORE,
+      payload: {}
+    });
     this.props.router.push('/');
   }
 
